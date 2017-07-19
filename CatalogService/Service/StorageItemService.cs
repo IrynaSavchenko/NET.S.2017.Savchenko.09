@@ -1,4 +1,6 @@
-﻿using CatalogService.Storage;
+﻿using System;
+using System.Collections.Generic;
+using CatalogService.Storage;
 using CatalogService.StorageItems;
 
 namespace CatalogService.Service
@@ -19,6 +21,16 @@ namespace CatalogService.Service
         public bool RemoveItem(T item)
         {
             return Repository.RemoveItem(item);
+        }
+
+        public T FindItemByTag(Predicate<T> tag)
+        {
+            return Repository.FindItemByTag(tag) as T;
+        }
+
+        public void SortItemsByTag(IComparer<T> comparer)
+        {
+            Repository.SortItemsByTag(comparer);
         }
     }
 }
