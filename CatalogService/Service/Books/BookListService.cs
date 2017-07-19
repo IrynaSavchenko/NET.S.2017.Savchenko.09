@@ -5,9 +5,8 @@ namespace CatalogService.Service.Books
 {
     public class BookListService : StorageItemService<Book>
     {
-        public BookListService(IRepositoryFactory<Book> repositoryFactory)
+        public BookListService(IRepositoryFactory<Book> repositoryFactory) : base(repositoryFactory)
         {
-            RepositoryFactory = repositoryFactory;
         }
     }
 }

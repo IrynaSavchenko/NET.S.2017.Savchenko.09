@@ -9,9 +9,13 @@ namespace CatalogService.Service
     {
         protected IRepositoryFactory<T> RepositoryFactory { get; set; }
 
-
         private AbstractRepository<T> repository;
         protected AbstractRepository<T> Repository => repository ?? (repository = RepositoryFactory.Create());
+
+        protected StorageItemService(IRepositoryFactory<T> repositoryFactory)
+        {
+            RepositoryFactory = repositoryFactory;
+        }
 
         public bool AddItem(T item)
         {

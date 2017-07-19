@@ -14,8 +14,8 @@ namespace CatalogService.Storage
         }
 
         public abstract AbstractRepository<T> Create();
-        public abstract void WriteItemToFile(BinaryWriter writer, T item);
-        public abstract T ReadItemFromFile(BinaryReader reader);
+        protected abstract void WriteItemToFile(BinaryWriter writer, T item);
+        protected abstract T ReadItemFromFile(BinaryReader reader);
 
         public void SaveItems(List<T> items)
         {

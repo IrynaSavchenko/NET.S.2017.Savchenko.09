@@ -2,14 +2,28 @@
 
 namespace CatalogService.StorageItems
 {
+    /// <summary>
+    /// Abstract class representation of the item to be stored in a repository
+    /// </summary>
     public abstract class StorageItem : IComparable
     {
         protected abstract bool Equals(StorageItem other);
 
+        protected abstract int CompareTo(StorageItem other);
+
+        #region Object Overriden Methods
+
+        /// <summary>
+        /// Object overriden method returning the item's hashcode
+        /// </summary>
+        /// <returns></returns>
         public abstract override int GetHashCode();
 
-        public abstract int CompareTo(StorageItem other);
-
+        /// <summary>
+        /// Object overriden method determining if the current object equals the determined one
+        /// </summary>
+        /// <param name="obj">Object to compare the current object with</param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -18,6 +32,15 @@ namespace CatalogService.StorageItems
             return obj.GetType() == GetType() && Equals((StorageItem)obj);
         }
 
+        #endregion
+
+        #region Interface Methods
+
+        /// <summary>
+        /// Realization of the IComparable method
+        /// </summary>
+        /// <param name="obj">Object to compare the current object with</param>
+        /// <returns></returns>
         public int CompareTo(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -30,6 +53,10 @@ namespace CatalogService.StorageItems
                 return 0;
             return CompareTo(item);
         }
+
+        #endregion
+
+        #region Operators
 
         public static bool operator ==(StorageItem lhs, object rhs)
         {
@@ -71,6 +98,10 @@ namespace CatalogService.StorageItems
             return CompareObjectType(lhs, rhs);
         }
 
+        #endregion
+
+        #region Private Methods
+
         private static int CompareObjectType(object lhs, StorageItem rhs)
         {
             if (!(lhs is StorageItem))
@@ -78,5 +109,7 @@ namespace CatalogService.StorageItems
 
             return ((StorageItem)lhs).CompareTo(rhs);
         }
+
+        #endregion
     }
 }

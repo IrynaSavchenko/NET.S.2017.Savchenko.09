@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CatalogService.StorageItems.Books
 {
@@ -10,8 +6,39 @@ namespace CatalogService.StorageItems.Books
     {
         public string Name { get; set; }
         public string Author { get; set; }
-        public int Year { get; set; }
-        public decimal Cost { get; set; }
+
+        private int year;
+        public int Year
+        {
+            get => year;
+            set
+            {
+                if(value < 0 || value > DateTime.Now.Year)
+                    throw new ArgumentException($"Argument {nameof(year)} is incorrect");
+            }
+        }
+
+        private decimal cost;
+
+        public decimal Cost
+        {
+            get => Cost;
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException($"Argument {nameof(cost)} must be positive");
+            }
+        }
+
+        public Book() { }
+
+        public Book(string author, string name, int year, decimal cost)
+        {
+            Author = author;
+            Name = name;
+            Year = year;
+            Cost = cost;
+        }
 
         protected override bool Equals(StorageItem other)
         {
@@ -31,7 +58,7 @@ namespace CatalogService.StorageItems.Books
                    Cost.GetHashCode() + Year.GetHashCode();
         }
 
-        public override int CompareTo(StorageItem other)
+        protected override int CompareTo(StorageItem other)
         {
             Book otherBook = other as Book;
             if (ReferenceEquals(otherBook, null))

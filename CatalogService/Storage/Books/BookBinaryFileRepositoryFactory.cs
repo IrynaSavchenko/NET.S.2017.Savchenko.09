@@ -14,7 +14,7 @@ namespace CatalogService.Storage.Books
             return new BookRepository();
         }
 
-        public override void WriteItemToFile(BinaryWriter writer, Book item)
+        protected override void WriteItemToFile(BinaryWriter writer, Book item)
         {
             writer.Write(item.Author);
             writer.Write(item.Name);
@@ -22,7 +22,7 @@ namespace CatalogService.Storage.Books
             writer.Write(item.Cost);
         }
 
-        public override Book ReadItemFromFile(BinaryReader reader)
+        protected override Book ReadItemFromFile(BinaryReader reader)
         {
             return new Book
             {
